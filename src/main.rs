@@ -17,6 +17,9 @@ async fn main(#[shuttle_secrets::Secrets] secret_store: SecretStore) -> ShuttleS
         .get("DISCORD_TOKEN")
         .context("'DISCORD_TOKEN' was not found")?;
 
+    let intents =
+        GatewayIntents::non_privileged() | GatewayIntents::MESSAGE_CONTENT;
+
     let command_vec = vec![
         commands::misc::ping::ping(),
         commands::misc::age::age(),
@@ -25,6 +28,10 @@ async fn main(#[shuttle_secrets::Secrets] secret_store: SecretStore) -> ShuttleS
     let framework = poise::Framework::builder()
         .options(poise::FrameworkOptions {
             commands: command_vec,
+            prefix_options: poise::PrefixFrameworkOptions {
+                prefix: Some("🦀".into()),
+                ..Default::default()
+            },
             ..Default::default()
         })
         .setup(|ctx, _ready, framework| {
@@ -35,7 +42,7 @@ async fn main(#[shuttle_secrets::Secrets] secret_store: SecretStore) -> ShuttleS
         })
         .build();
 
-    let client = ClientBuilder::new(discord_token, GatewayIntents::non_privileged())
+    let client = ClientBuilder::new(discord_token, intents)
         .framework(framework)
         .await
         .map_err(shuttle_runtime::CustomError::new)?;
