@@ -1,3 +1,5 @@
+mod commands;
+
 use anyhow::Context as _;
 use poise::serenity_prelude::{ClientBuilder, GatewayIntents};
 use shuttle_secrets::SecretStore;
@@ -16,7 +18,8 @@ async fn main(#[shuttle_secrets::Secrets] secret_store: SecretStore) -> ShuttleS
         .context("'DISCORD_TOKEN' was not found")?;
 
     let command_vec = vec![
-
+        commands::misc::ping::ping(),
+        commands::misc::age::age(),
     ];
 
     let framework = poise::Framework::builder()
