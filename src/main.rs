@@ -23,6 +23,7 @@ async fn main(#[shuttle_secrets::Secrets] secret_store: SecretStore) -> ShuttleS
     let command_vec = vec![
         commands::misc::ping::ping(),
         commands::misc::age::age(),
+        commands::misc::help::help(),
     ];
 
     let framework = poise::Framework::builder()
