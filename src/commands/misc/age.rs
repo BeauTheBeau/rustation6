@@ -3,6 +3,9 @@ use anyhow::Result;
 use poise::serenity_prelude::User;
 
 /// Replies with the age of your or another user's account.
+///
+/// Retrieves the creation date of the user's account and sends it back in a message.
+/// If no user is specified, it will default to your account.
 #[poise::command(slash_command, category = "Utility")]
 pub async fn age(
     ctx: Context<'_>,
