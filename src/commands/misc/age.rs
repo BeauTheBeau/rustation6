@@ -3,7 +3,7 @@ use anyhow::Result;
 use poise::serenity_prelude::User;
 
 /// Replies with the age of your or another user's account.
-#[poise::command(slash_command)]
+#[poise::command(slash_command, category = "Utility")]
 pub async fn age(
     ctx: Context<'_>,
     #[description = "The user to get the age of. Defaults to yourself."] user: Option<User>,

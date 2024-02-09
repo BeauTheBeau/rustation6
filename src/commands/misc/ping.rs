@@ -3,7 +3,7 @@ use std::time::{SystemTime, UNIX_EPOCH};
 use anyhow::Result;
 
 /// Replies with the bot's current latency and round trip time in milliseconds.
-#[poise::command(slash_command)]
+#[poise::command(slash_command, category = "Utility")]
 pub async fn ping(ctx: Context<'_>) -> Result<(), Error> {
     let start = ctx.created_at().timestamp_millis() as u128;
     let now = get_current_millis()?;
