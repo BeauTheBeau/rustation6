@@ -7,7 +7,7 @@ use anyhow::Result;
 /// The latency is the time it takes for the bot to receive the command and respond.
 /// The round trip time is the time it takes for the bot to receive the command, process it, and respond back. It is
 /// sent in a separate message after the latency.
-#[poise::command(slash_command, category = "Utility")]
+#[poise::command(prefix_command, slash_command, category = "Utility")]
 pub async fn ping(ctx: Context<'_>) -> Result<(), Error> {
     let start = ctx.created_at().timestamp_millis() as u128;
     let now = get_current_millis()?;
