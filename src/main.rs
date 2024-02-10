@@ -6,7 +6,6 @@ use poise::serenity_prelude as serenity;
 use shuttle_secrets::SecretStore;
 use shuttle_serenity::ShuttleSerenity;
 use mongodb::{Client, Database};
-use poise::futures_util::future::BoxFuture;
 
 struct Data {
     database_client: Client
@@ -19,22 +18,6 @@ async fn connect_to_mongodb(uri: &str, database_name: &str) -> Result<(Client, D
     let database = client.database(database_name);
 
     Ok((client, database))
-}
-
-fn pre_command(mut ctx: Context<'_>) -> BoxFuture<'static, Result<(), Error>> {
-    let name = ctx.command().qualified_name.clone();
-    Box::pin(async move {
-        println!("Executing command {}...", name);
-        Ok(())
-    })
-}
-
-fn post_command(mut ctx: Context<'_>) -> BoxFuture<'static, Result<(), Error>> {
-    let name = ctx.command().qualified_name.clone();
-    Box::pin(async move {
-        println!("Executed command {}!", name);
-        Ok(())
-    })
 }
 
 #[shuttle_runtime::main]
